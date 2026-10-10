@@ -7,7 +7,6 @@ working when the host changes.
 - Public address: https://joeywilkes12.github.io/finops-focus-router/
 - Current destination: https://finops-focus-jwilkes.vercel.app/ (Vercel, Supabase backend)
 - Repository: https://github.com/JoeyWilkes12/finops-focus-router
-- App source: https://github.com/JoeyWilkes12/FinOps-FOCUS (`apps/web`)
 - QR assets: `finops-focus-router-qr.png` (1176 × 1176 pixels, 300 DPI, black on
   white, high error correction) and `finops-focus-router-qr.svg`. Both encode the
   router address, not the destination.
@@ -21,9 +20,7 @@ the destination, validation, commit/push commands, PR approval, and publication.
 Link to the router address, not the host, anywhere the link should survive a
 host change:
 
-- The Portfolio page of the personal website
-  (`shared-assets/portfolio/websites/projects.json` in the private
-  `personal-websites` repository).
+- The Portfolio page of Joey Wilkes's personal website.
 - Printed or shared QR codes.
 
 Changing the destination here updates every one of those without republishing
