@@ -160,10 +160,23 @@ Choose the `pages build and deployment` run whose `headSha` matches the new
 gh run watch RUN_ID --repo JoeyWilkes12/finops-focus-router --exit-status
 gh api repos/JoeyWilkes12/finops-focus-router/pages \
   --jq '{status,html_url,source,https_enforced}'
+```
+
+Then run the public checks against the merged source. In the original checkout
+with a clean working tree:
+
+```sh
 git switch main
 git pull --ff-only origin main
 python3 scripts/check_links.py
 ```
+
+From a feature worktree, leave it on its branch: `main` is usually checked out
+in the original checkout, so `git switch main` fails there. Synchronize the
+original checkout separately, or run `python3 scripts/check_links.py` from the
+worktree after `git fetch origin` and confirm `git diff origin/main -- index.html`
+is empty. After a squash merge the new commit has a different SHA, so compare
+the deployed `index.html` with `main`, not the feature-branch SHA.
 
 A successful HTTP fetch of the router is HTTP 200; the automatic redirect happens
 in the browser rather than as an HTTP 301/302.
