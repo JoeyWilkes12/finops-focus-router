@@ -11,6 +11,9 @@ working when the host changes.
   white, high error correction) and `finops-focus-router-qr.svg`. Both encode the
   router address, not the destination.
 
+Environment role: routes to the **Production** FOCUS Explorer deployment on
+Vercel. Agents: see [AGENTS.md](AGENTS.md).
+
 Built from the [personal-website-router](https://github.com/JoeyWilkes12/personal-website-router)
 template. See the [maintenance guide](MAINTENANCE.md) for changing or reverting
 the destination, validation, commit/push commands, PR approval, and publication.
