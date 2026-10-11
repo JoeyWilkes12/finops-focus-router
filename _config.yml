@@ -3,5 +3,7 @@ baseurl: "/finops-focus-router"
 exclude:
   - README.md
   - MAINTENANCE.md
+  - AGENTS.md
+  - CLAUDE.md
   - scripts
   - output
