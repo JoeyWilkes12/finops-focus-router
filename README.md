@@ -1,94 +1,69 @@
-# FinOps FOCUS router
+# FinOps FOCUS — QR Code Router
 
-A permanent address for **FOCUS Explorer**, Joey Wilkes's FinOps FOCUS app. It
-redirects immediately to wherever the app is hosted, so links and QR codes keep
-working when the host changes.
+A stable public address for **FOCUS Explorer**, Joey Wilkes's FinOps FOCUS application. Visitors follow a portfolio link or scan a QR code, open this router, and continue to the application's current website.
 
-- Public address: https://joeywilkes12.github.io/finops-focus-router/
-- Current destination: https://finops-focus-jwilkes.vercel.app/ (Vercel, Supabase backend)
-- Repository: https://github.com/JoeyWilkes12/finops-focus-router
-- QR assets: `finops-focus-router-qr.png` (1176 × 1176 pixels, 300 DPI, black on
-  white, high error correction) and `finops-focus-router-qr.svg`. Both encode the
-  router address, not the destination.
+The router lets you **print, laminate, and distribute a QR code, then maintain its destination in one place.** If FOCUS Explorer moves to a different URL or hosting provider, update the router while keeping existing links and the address encoded in the QR code unchanged.
 
-Environment role: routes to the **Production** FOCUS Explorer deployment on
-Vercel. Agents: see [AGENTS.md](AGENTS.md).
+## Why use a router?
 
-Built from the [personal-website-router](https://github.com/JoeyWilkes12/personal-website-router)
-template. See the [maintenance guide](MAINTENANCE.md) for changing or reverting
-the destination, validation, commit/push commands, PR approval, and publication.
+Portfolio links and printed materials can outlast an application's hosting arrangement. A stable entry point helps keep them useful:
 
-## Who links here
+- **Preserve shared materials.** QR codes that encode the router address can continue to work after a destination change without reprinting or redistribution.
+- **Centralize updates.** One destination setting updates every portfolio link and QR code that points to the router.
+- **Support future moves.** FOCUS Explorer can be maintained and hosted independently of its public entry point.
 
-Link to the router address, not the host, anywhere the link should survive a
-host change:
+These benefits depend on preserving the router URL and keeping its GitHub Pages publication available.
 
-- The Portfolio page of Joey Wilkes's personal website.
-- Printed or shared QR codes.
+## Routing
 
-Changing the destination here updates every one of those without republishing
-the personal website.
-
-## Change the destination
-
-Edit only the `redirect_url` value at the top of `index.html`:
-
-```yaml
-redirect_url: "https://finops-focus-jwilkes.vercel.app/"
+```mermaid
+flowchart LR
+    Entry[Portfolio link or QR code] --> Router[Stable FinOps FOCUS router URL]
+    Router --> App[Current FOCUS Explorer website]
 ```
 
-Commit and push a feature branch, then open a PR. After you approve and merge it
-into `main`, GitHub Pages runs Jekyll automatically and replaces every
-`page.redirect_url` reference with that value. This updates the JavaScript
-redirect, HTML refresh, fallback link, canonical link, and structured metadata
-together. Keep the URL in double quotes and use an absolute HTTPS address.
+| Address | URL |
+| --- | --- |
+| **Share or encode in the QR code** | [https://joeywilkes12.github.io/finops-focus-router/](https://joeywilkes12.github.io/finops-focus-router/) |
+| Current application destination | [https://finops-focus-jwilkes.vercel.app/](https://finops-focus-jwilkes.vercel.app/) |
 
-JavaScript uses `location.replace()` so the browser's Back button doesn't loop
-through the router. The HTML refresh also works with JavaScript disabled. The
-visible link provides a manual way to continue if automatic navigation is blocked.
-This is a browser redirect served with HTTP 200, rather than an HTTP 301/302.
+The included [PNG](finops-focus-router-qr.png) and [SVG](finops-focus-router-qr.svg) QR assets encode the stable router address. Keep the white border around the code when printing or placing it in a design. Regenerate these assets only if the router address itself changes.
 
-Keep the repository name and Pages address stable. Allow GitHub Pages a few
-minutes to publish a push.
+## Implementation
 
-## Publishing and checks
+This repository contains a small static HTML router. GitHub Pages processes its Jekyll/Liquid templates so one `redirect_url` setting in [index.html](index.html) supplies the navigation and metadata URLs.
 
-GitHub Pages publishes the root of the `main` branch with its built-in Jekyll build.
-Do not add `.nojekyll`: it would disable the URL substitutions. Opening the source
-HTML directly also skips Jekyll; preview the generated site instead.
+- **JavaScript** uses `window.location.replace(...)` to navigate without adding the router page to browser history.
+- An **HTML meta refresh** forwards visitors when JavaScript is disabled.
+- A **manual link** provides a way to continue if automatic navigation does not occur.
+- The canonical link and structured metadata use the same destination setting.
 
-Run the automated hyperlink and generated-content regression check before a
-release, supplying a rendered local preview URL, then verify the public deployment.
-The maintenance guide includes a complete preview setup using
-`scripts/render_preview.rb`:
+The router is served as an HTTP 200 page; navigation happens in the browser rather than through an HTTP 301/302 response. It has no application backend or database. FOCUS Explorer is hosted separately.
 
-```sh
-python3 scripts/check_links.py --site-url http://127.0.0.1:4179/finops-focus-router/
-python3 scripts/check_links.py
-```
+## Deployment
 
-The checker follows HTTP redirects, fails on HTTP 4xx/5xx, and checks the published
-redirect destinations, metadata, sitemap, robots file, and both QR files. Browser
-regression coverage checks immediate navigation with and without JavaScript,
-Back-button behavior, the fallback link, keyboard focus, and overflow at 390px
-and 1440px. With Playwright CLI open on that localhost preview, run
-`run-code --filename scripts/browser_check.js`. The test substitutes a local
-destination so the browser does not visit external sites.
+GitHub Pages publishes this repository with the following configuration:
 
-`robots.txt` allows public content. Because this is a GitHub project site, its file
-is under the project path; domain-wide crawler rules belong to the account's root
-site. The canonical URL points crawlers to the current destination.
+| Setting | Value |
+| --- | --- |
+| Publishing branch | `main` |
+| Publishing folder | `/` (repository root) |
+| Rendering | GitHub Pages with Jekyll/Liquid |
+| Router source | [index.html](index.html) |
 
-## QR source
+Changes merged into `main` are published by GitHub Pages. Keep `.nojekyll` absent so the URL substitutions run. Opening the source HTML directly does not process the templates; use a rendered preview for validation.
 
-Regenerate the QR files with the QR Code Generator skill only if the stable
-Pages address changes:
+## Changing the destination
 
-```sh
-python3 ~/.claude/skills/qr-code-generator/scripts/generate_qr.py \
-  "https://joeywilkes12.github.io/finops-focus-router/" \
-  --name finops-focus-router-qr --formats png,svg --box-size 24 --output-dir .
-```
+1. Confirm the replacement application URL is published and accessible.
+2. Create a feature branch from `main` and update only the `redirect_url` value at the top of `index.html`. Use an absolute HTTPS URL in double quotes:
 
-The four-module white border is the required quiet zone; preserve it when
-printing or placing the image.
+   ```yaml
+   redirect_url: "https://finops-focus-jwilkes.vercel.app/"
+   ```
+
+3. Update the current destination in this README and run the checks described in [MAINTENANCE.md](MAINTENANCE.md).
+4. Open a pull request against `main` for review. Obtain the repository owner's approval before merging.
+5. After GitHub Pages finishes deploying, verify the public router and scan a QR code to confirm both reach the new destination.
+
+Keep the repository name, Pages address, and QR assets unchanged when moving the application. The [maintenance guide](MAINTENANCE.md) covers local previews, link and browser checks, publication verification, and rollback.
