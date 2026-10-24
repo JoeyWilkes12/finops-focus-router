@@ -10,7 +10,7 @@ Portfolio links here, not to the app host.
 | Environment | Address | Role here |
 | --- | --- | --- |
 | Dev | Local Liquid preview, also shared on the owner's tailnet | Render and check changes before a PR |
-| Production destination | https://finops-focus-jwilkes.vercel.app/ (Vercel, Supabase backend) | The destination on `main` |
+| Production destination | https://finops-focus-jbwilkes-2.vercel.app/ (Vercel static site; queries run in the browser) | The destination on `main` |
 
 The personal website's own Dev, Test, Staging, and Production environments all
 link to this router. The full environment reference lives in the owner's
