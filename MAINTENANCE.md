@@ -42,7 +42,7 @@ and run every command below from that worktree.
 Edit `index.html`. For the Vercel deployment, set:
 
 ```yaml
-redirect_url: "https://finops-focus-jwilkes.vercel.app/"
+redirect_url: "https://finops-focus-jbwilkes-2.vercel.app/"
 ```
 
 Keep an absolute HTTPS URL in double quotes. The QR files do not change.
@@ -59,7 +59,7 @@ Check the new destination through its HTTP redirect chain:
 ```sh
 curl --fail --show-error --location --output /dev/null \
   --write-out 'HTTP %{http_code}: %{url_effective}\n' \
-  https://finops-focus-jwilkes.vercel.app/
+  https://finops-focus-jbwilkes-2.vercel.app/
 ```
 
 Then render a local preview and run the automated checks. A raw

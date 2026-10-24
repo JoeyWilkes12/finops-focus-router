@@ -5,7 +5,7 @@ redirects immediately to wherever the app is hosted, so links and QR codes keep
 working when the host changes.
 
 - Public address: https://joeywilkes12.github.io/finops-focus-router/
-- Current destination: https://finops-focus-jwilkes.vercel.app/ (Vercel, Supabase backend)
+- Current destination: https://finops-focus-jbwilkes-2.vercel.app/ (Vercel static site; queries run in the browser)
 - Repository: https://github.com/JoeyWilkes12/finops-focus-router
 - QR assets: `finops-focus-router-qr.png` (1176 × 1176 pixels, 300 DPI, black on
   white, high error correction) and `finops-focus-router-qr.svg`. Both encode the
@@ -34,7 +34,7 @@ the personal website.
 Edit only the `redirect_url` value at the top of `index.html`:
 
 ```yaml
-redirect_url: "https://finops-focus-jwilkes.vercel.app/"
+redirect_url: "https://finops-focus-jbwilkes-2.vercel.app/"
 ```
 
 Commit and push a feature branch, then open a PR. After you approve and merge it
