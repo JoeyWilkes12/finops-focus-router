@@ -28,3 +28,8 @@ private source repository.
 - Share any local preview on the owner's tailnet
   (`Tailscale serve --bg --http=<port> <port>`) so it can be reviewed from a
   phone.
+- Never write tailnet hostnames, `*.ts.net` links or other private preview
+  addresses into this public repository: not in files, commit messages, PR
+  descriptions, comments or reviews. Give the reviewer the preview link in the
+  chat or session instead. GitHub keeps PR description edit history, so a link
+  posted once stays visible until the owner deletes that revision.
